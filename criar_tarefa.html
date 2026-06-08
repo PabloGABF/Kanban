@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Tarefa - Kanban Corporativo</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="formulario.js" defer></script>
+    </head>
+<body>
+
+    <header>
+        <h1><a href="index.html">Meu Kanban</a></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Visão Geral</a></li>
+                <li><a href="calendario.html">Calendário</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container-formulario">
+        
+        <section class="cabecalho-tarefa">
+            <h2>Criar Nova Tarefa</h2>
+            <p>Preencha os detalhes do novo cartão para o adicionar ao quadro.</p>
+        </section>
+
+        <form class="formulario-tarefa">
+            
+            <div class="grupo-input">
+                <label for="titulo-tarefa">Título da Tarefa <span aria-hidden="true">*</span></label>
+                <input 
+                    type="text" 
+                    id="titulo-tarefa" 
+                    name="titulo" 
+                    placeholder="Ex: Configurar base de dados" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="grupo-input">
+                <label for="descricao-tarefa">Descrição</label>
+                <textarea 
+                    id="descricao-tarefa" 
+                    name="descricao" 
+                    rows="4" 
+                    placeholder="Descreva o que precisa de ser feito..."
+                ></textarea>
+            </div>
+
+            <div class="grupo-linha-dupla">
+                
+                <div class="grupo-input">
+                    <label for="responsavel-tarefa">Responsável</label>
+                    <select id="responsavel-tarefa" name="responsavel">
+                        <option value="" disabled selected>Selecione um membro...</option>
+                        <option value="pablo">Pablo (Dev/Ops)</option>
+                        <option value="maria">Camilli (UX/UI)</option>
+                        <option value="joao">Pedro(QA/Testes)</option>
+                    </select>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="data-limite">Data Limite (Deadline)</label>
+                    <input 
+                        type="date" 
+                        id="data-limite" 
+                        name="data_limite"
+                    >
+                </div>
+
+            </div>
+
+            <fieldset class="grupo-prioridade">
+                <legend>Nível de Prioridade</legend>
+                
+                <label>
+                    <input type="radio" name="prioridade" value="baixa" checked> Baixa
+                </label>
+                
+                <label>
+                    <input type="radio" name="prioridade" value="media"> Média
+                </label>
+                
+                <label>
+                    <input type="radio" name="prioridade" value="alta"> Alta
+                </label>
+            </fieldset>
+
+            <div class="acoes-formulario">
+                <a href="index.html" class="btn-secundario">Cancelar</a>
+                <button type="submit" class="btn-primario">Criar Cartão</button>
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+</html>
