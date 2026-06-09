@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. VARIÁVEIS GLOBAIS DE MARCA (Sua paleta de cores padrão)
-   ========================================================================== */
 :root {
     --cor-fundo: #F4F5F7;            /* Branco Gelo */
     --cor-coluna-cabecalho: #E1E4E8; /* Cinza Claro */
@@ -14,9 +11,6 @@
     --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* ==========================================================================
-   2. RESET GLOBAL E CONFIGURAÇÕES BASE
-   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -42,9 +36,6 @@ a:hover {
     color: var(--cor-texto);
 }
 
-/* ==========================================================================
-   3. CABEÇALHO E MENU DE NAVEGAÇÃO CENTRALIZADO
-   ========================================================================== */
 header {
     background-color: var(--cor-cartao);
     border-bottom: 2px solid var(--cor-coluna-cabecalho);
@@ -86,19 +77,12 @@ header nav ul li a:hover {
     color: var(--cor-primaria);
 }
 
-/* ==========================================================================
-   4. ESTRUTURA DO QUADRO KANBAN (RESPONSIVIDADE AUTOMÁTICA)
-   ========================================================================== */
 .quadro-kanban {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     align-items: start;
 }
-
-/* ==========================================================================
-   5. ESTILIZAÇÃO DAS COLUNAS
-   ========================================================================== */
 .coluna {
     background-color: #ddd; /* Adiciona este cinza para veres a caixa */
     border: 2px dashed #333; /* Adiciona uma borda tracejada */
@@ -117,9 +101,6 @@ header nav ul li a:hover {
     align-items: center;
 }
 
-/* ==========================================================================
-   6. OS CARTÕES DE TAREFA (CARDS)
-   ========================================================================== */
 .cartao-tarefa {
     background-color: var(--cor-cartao);
     border-radius: 6px;
@@ -161,9 +142,6 @@ header nav ul li a:hover {
     border-left-color: var(--cor-urgente);
 }
 
-/* ==========================================================================
-   7. RODAPÉ DO SISTEMA
-   ========================================================================== */
 footer {
     text-align: center;
     margin-top: 40px;
@@ -171,3 +149,19 @@ footer {
     font-size: 12px;
     color: #94A3B8;
 }
+/* A área específica onde os cartões são soltos */
+.area-cartoes {
+    min-height: 400px; /* Garante que a zona de soltar exista mesmo vazia */
+    padding-bottom: 20px;
+}
+
+/* Efeito no cartão que está sendo segurado pelo mouse */
+.cartao-tarefa.arrastando {
+    opacity: 0.5;
+    border: 2px dashed var(--cor-primaria);
+}
+
+/* Efeito na coluna quando um cartão passa por cima dela */
+.coluna.drag-over {
+    background-color: #cbd5e1; /* Um cinza um pouco mais escuro */
+    border-color: var(--cor-primaria);
