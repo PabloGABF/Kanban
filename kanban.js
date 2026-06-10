@@ -1,217 +1,89 @@
-/* ==========================================================================
-   1. VARIÁVEIS GLOBAIS DE MARCA (Sua paleta de cores padrão)
-   ========================================================================== */
-:root {
-    --cor-fundo: #F4F5F7;            /* Branco Gelo */
-    --cor-coluna-cabecalho: #E1E4E8; /* Cinza Claro */
-    --cor-texto: #1E293B;            /* Cinza Escuro/Preto */
-    --cor-primaria: #2563EB;         /* Azul Escuro (Ações) */
-    --cor-urgente: #EF4444;          /* Vermelho Suave (Destaques) */
-    --cor-cartao: #FFFFFF;           /* Branco Puro para os Cards */
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("--- KANBAN: Iniciando leitura e Drag/Drop ---");
     
-    --fonte-principal: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --raio-borda: 8px;
-    --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* ==========================================================================
-   2. RESET GLOBAL E CONFIGURAÇÕES BASE
-   ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Garante que o padding não quebre as larguras */
-}
-
-body {
-    font-family: var(--fonte-principal);
-    background-color: var(--cor-fundo);
-    color: var(--cor-texto);
-    line-height: 1.6;
-    padding: 20px;
-}
-
-/* Reset Global para Links (A sua ideia Sênior aplicada!) */
-a {
-    text-decoration: none;
-    color: var(--cor-primaria);
-    transition: color 0.2s ease;
-}
-
-a:hover {
-    color: var(--cor-texto);
-}
-
-/* ==========================================================================
-   3. CABEÇALHO E MENU DE NAVEGAÇÃO CENTRALIZADO
-   ========================================================================== */
-header {
-    background-color: var(--cor-cartao);
-    border-bottom: 2px solid var(--cor-coluna-cabecalho);
-    border-radius: var(--raio-borda);
-    padding: 15px 30px;
-    margin-bottom: 30px;
-    box-shadow: var(--sombra-suave);
+    const STORAGE_KEY = 'kanban_tarefas';
+    const listaTarefas = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     
-    /* Flexbox para alinhar o Logo na esquerda e o Menu na direita */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Permite quebrar a linha no celular se faltar espaço */
-    gap: 15px;
+    // Selecionamos a área de cartões da coluna To-Do para renderização inicial
+    const areaToDo = document.querySelector('#to-do .area-cartoes');
+
+    // 1. RENDERIZAÇÃO DOS CARTÕES
+    listaTarefas.forEach((tarefa, index) => {
+        const article = document.createElement('article');
+        article.className = 'cartao-tarefa';
+        article.draggable = true; // ATRIBUTO ESSENCIAL: Diz ao navegador que este elemento pode ser arrastado
+        article.dataset.id = index; // Penduramos o ID aqui para o futuro LocalStorage
+        
+article.innerHTML = `
+            <div class="acoes-cartao">
+                <button class="btn-editar" onclick="editarTarefa(${index})">✏️</button>
+                <button class="btn-excluir" onclick="excluirTarefa(${index})">🗑️</button>
+            </div>
+            <h3>${tarefa.titulo}</h3>
+            <p>${tarefa.descricao || 'Sem descrição'}</p>
+            <small>Responsável: ${tarefa.responsavel || 'Ninguém'}</small>
+        `;
+        // Eventos do CARTÃO (Quem está sendo arrastado)
+        article.addEventListener('dragstart', () => {
+            article.classList.add('arrastando');
+        });
+
+        article.addEventListener('dragend', () => {
+            article.classList.remove('arrastando');
+        });
+
+        if (areaToDo) areaToDo.appendChild(article);
+    });
+
+    // 2. LÓGICA DAS COLUNAS (Zonas de Soltar / Dropzones)
+    const colunas = document.querySelectorAll('.coluna');
+
+    colunas.forEach(coluna => {
+        const areaCartoes = coluna.querySelector('.area-cartoes');
+
+        // dragover: O cartão está sobrevoando a coluna
+        coluna.addEventListener('dragover', e => {
+            e.preventDefault(); // REGRA DE OURO: O HTML5 bloqueia drops por padrão. O preventDefault libera.
+            coluna.classList.add('drag-over'); // Efeito visual do CSS
+            
+            const cartaoArrastando = document.querySelector('.arrastando');
+            if(cartaoArrastando) {
+                areaCartoes.appendChild(cartaoArrastando); // Move fisicamente o cartão na DOM
+            }
+        });
+
+        // dragleave: O cartão saiu de cima da coluna
+        coluna.addEventListener('dragleave', () => {
+            coluna.classList.remove('drag-over');
+        });
+
+        // drop: O usuário soltou o clique
+        coluna.addEventListener('drop', () => {
+            coluna.classList.remove('drag-over');
+            // FUTURO: É exatamente aqui que vamos colocar a lógica para salvar a nova posição no LocalStorage!
+            console.log("Cartão solto! Futura atualização de banco de dados entra aqui.");
+        });
+    });
+});
+function excluirTarefa(index) {
+    const confirmacao = confirm("Tem certeza que deseja excluir esta tarefa?");
+    
+    if (confirmacao) {
+        const STORAGE_KEY = 'kanban_tarefas';
+        let listaTarefas = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        
+        // Remove 1 item a partir da posição (index)
+        listaTarefas.splice(index, 1);
+        
+        // Salva a nova lista atualizada no banco
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(listaTarefas));
+        
+        // Recarrega a página para atualizar o visual rapidamente
+        window.location.reload();
+    }
 }
 
-header h1 a {
-    font-size: 24px;
-    font-weight: 700;
-    /* text-decoration e color foram removidos daqui porque o Reset Global já cuida disso! */
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-header nav ul li a {
-    color: var(--cor-texto);
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-header nav ul li a:hover {
-    background-color: var(--cor-fundo);
-    color: var(--cor-primaria);
-}
-
-/* ==========================================================================
-   4. ESTRUTURA DO QUADRO KANBAN (RESPONSIVIDADE AUTOMÁTICA)
-   ========================================================================== */
-.quadro-kanban {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    align-items: start;
-}
-
-/* ==========================================================================
-   5. ESTILIZAÇÃO DAS COLUNAS
-   ========================================================================== */
-.coluna {
-    background-color: #ddd; /* Adiciona este cinza para veres a caixa */
-    border: 2px dashed #333; /* Adiciona uma borda tracejada */
-    border-radius: var(--raio-borda);
-    padding: 20px;
-    box-shadow: var(--sombra-suave);
-    min-height: 500px;
-}
-.coluna h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* ==========================================================================
-   6. OS CARTÕES DE TAREFA (CARDS)
-   ========================================================================== */
-.cartao-tarefa {
-    background-color: var(--cor-cartao);
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: var(--sombra-suave);
-    cursor: grab; /* Muda o rato para uma mãozinha de arrastar */
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    border-left: 4px solid var(--cor-primaria); /* Detalhe lateral em azul */
-}
-
-/* Estado visual quando o utilizador clica para arrastar */
-.cartao-tarefa:active {
-    cursor: grabbing;
-    transform: scale(0.98);
-}
-
-.cartao-tarefa h3 {
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: var(--cor-texto);
-}
-
-.cartao-tarefa p {
-    font-size: 14px;
-    color: #64748B; /* Tom de cinza para texto secundário */
-    margin-bottom: 12px;
-}
-
-.cartao-tarefa small {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--cor-texto);
-}
-
-/* Classe utilitária caso queira destacar um cartão urgente */
-.cartao-tarefa.urgente {
-    border-left-color: var(--cor-urgente);
-}
-
-/* ==========================================================================
-   7. RODAPÉ DO SISTEMA
-   ========================================================================== */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    font-size: 12px;
-    color: #94A3B8;
-}
-/* ==========================================================================
-   8. ESTILOS DO DRAG AND DROP (ARRASTAR E SOLTAR)
-   ========================================================================== */
-
-/* A área específica onde os cartões são soltos */
-.area-cartoes {
-    min-height: 400px; /* Garante que a zona de soltar exista mesmo vazia */
-    padding-bottom: 20px;
-}
-
-/* Efeito no cartão que está sendo segurado pelo mouse */
-.cartao-tarefa.arrastando {
-    opacity: 0.5;
-    border: 2px dashed var(--cor-primaria);
-}
-
-/* Efeito na coluna quando um cartão passa por cima dela */
-.coluna.drag-over {
-    background-color: #cbd5e1; /* Um cinza um pouco mais escuro */
-    border-color: var(--cor-primaria);
-}
-/* ==========================================================================
-   9. BOTÕES DE AÇÃO DO CARTÃO (EDITAR/EXCLUIR)
-   ========================================================================== */
-.acoes-cartao {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-bottom: 5px;
-}
-
-.acoes-cartao button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    opacity: 0.6;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.acoes-cartao button:hover {
-    opacity: 1;
-    transform: scale(1.2);
+function editarTarefa(index) {
+    // Por enquanto apenas avisa. Faremos a lógica a seguir!
+    console.log("Preparando para editar a tarefa de índice:", index);
 }
