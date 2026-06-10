@@ -82,8 +82,7 @@ function excluirTarefa(index) {
         window.location.reload();
     }
 }
-
 function editarTarefa(index) {
-    // Por enquanto apenas avisa. Faremos a lógica a seguir!
-    console.log("Preparando para editar a tarefa de índice:", index);
+    // Redireciona para o formulário passando o índice via URL
+    window.location.href = `criar_tarefa.html?edit=${index}`;
 }
