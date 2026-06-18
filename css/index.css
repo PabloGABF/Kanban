@@ -1,0 +1,311 @@
+/* index.css - Driftboard Kanban */
+/* Paleta: #111113, #D18681, #ACBFB7, #F6EBDD, #8E6D86 */
+
+:root {
+    --bg: #111113;
+    --surface: #18181b;
+    --surface-card: #101012;
+    --surface-hover: #202025;
+    --border: rgba(246, 235, 221, 0.12);
+    --border-dashed: rgba(246, 235, 221, 0.16);
+    --text: #F6EBDD;
+    --muted: #ACBFB7;
+    --primary: #D18681;
+    --primary-hover: #e19792;
+    --purple: #8E6D86;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+    --radius: 18px;
+    --font-title: Georgia, "Times New Roman", serif;
+    --font-body: Inter, Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 8% 12%, rgba(142, 109, 134, 0.10), transparent 28%),
+        radial-gradient(circle at 78% 0%, rgba(209, 134, 129, 0.07), transparent 26%),
+        var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+}
+
+/* Cabeçalho */
+body > header {
+    height: 80px;
+    padding: 0 clamp(20px, 3vw, 48px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(17, 17, 19, 0.88);
+    backdrop-filter: blur(14px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+body > header h1 {
+    font-family: var(--font-title);
+    font-size: 1.55rem;
+    font-style: italic;
+    line-height: 1;
+}
+
+body > header h1 a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+body > header nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+body > header nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+body > header nav a:hover {
+    color: var(--text);
+}
+
+/* Segundo item do menu: Criar Tarefa */
+body > header nav li:nth-child(2) a {
+    padding: 0 24px;
+    border-radius: 14px;
+    background: var(--primary);
+    color: #111113;
+    box-shadow: 0 14px 30px rgba(209, 134, 129, 0.20);
+}
+
+body > header nav li:nth-child(2) a::before {
+    content: "+";
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+body > header nav li:nth-child(2) a:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Terceiro item do menu: Sair */
+body > header nav li:nth-child(3) a::before {
+    content: "↪";
+    color: var(--muted);
+}
+
+/* Quadro Kanban */
+.quadro-kanban {
+    width: min(100%, 1880px);
+    margin: 0 auto;
+    padding: 30px clamp(16px, 3vw, 48px) 56px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.coluna {
+    min-height: calc(100vh - 140px);
+    padding: 24px 20px;
+    border: 1px dashed var(--border-dashed);
+    border-radius: var(--radius);
+    background: rgba(246, 235, 221, 0.035);
+    box-shadow: inset 0 1px 0 rgba(246, 235, 221, 0.04);
+}
+
+.coluna h2 {
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-title);
+    font-size: 1.12rem;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+/* Área onde seu JS coloca os cards */
+.area-cartoes {
+    display: grid;
+    gap: 16px;
+}
+
+/* Compatível com vários nomes de classe que você possa usar no JS */
+.area-cartoes > *,
+.cartao,
+.card,
+.tarefa,
+.task-card {
+    position: relative;
+    padding: 20px 20px 20px 22px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+    background: var(--surface-card);
+    color: var(--muted);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.area-cartoes > *:hover,
+.cartao:hover,
+.card:hover,
+.tarefa:hover,
+.task-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(209, 134, 129, 0.38);
+    background: #121215;
+}
+
+.area-cartoes h3,
+.cartao h3,
+.card h3,
+.tarefa h3,
+.task-card h3,
+.titulo-cartao {
+    margin-right: 56px;
+    margin-bottom: 14px;
+    color: var(--text);
+    font-family: var(--font-title);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.area-cartoes p,
+.cartao p,
+.card p,
+.tarefa p,
+.task-card p,
+.descricao-cartao {
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.responsavel,
+.card-responsavel,
+.tarefa-responsavel {
+    margin-top: 16px;
+    color: var(--purple);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+/* Botões de ação dentro dos cards */
+.acoes-card,
+.card-actions,
+.tarefa-acoes {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.acoes-card button,
+.card-actions button,
+.tarefa-acoes button,
+.botao-editar,
+.botao-excluir {
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+
+.acoes-card button:hover,
+.card-actions button:hover,
+.tarefa-acoes button:hover,
+.botao-editar:hover,
+.botao-excluir:hover {
+    background: rgba(209, 134, 129, 0.12);
+    transform: translateY(-1px);
+}
+
+.botao-excluir,
+.tarefa-acoes .excluir {
+    color: var(--purple);
+}
+
+/* Estados opcionais */
+.coluna.drag-over {
+    border-color: var(--primary);
+    background: rgba(209, 134, 129, 0.07);
+}
+
+.area-cartoes > *.arrastando,
+.cartao.arrastando,
+.card.arrastando,
+.tarefa.arrastando {
+    opacity: 0.55;
+    transform: rotate(1deg);
+}
+
+@media (max-width: 1200px) {
+    .quadro-kanban {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+    }
+
+    .coluna {
+        min-height: 520px;
+    }
+}
+
+@media (max-width: 720px) {
+    body > header {
+        height: auto;
+        min-height: 82px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        align-items: flex-start;
+        gap: 18px;
+        flex-direction: column;
+    }
+
+    body > header nav ul {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    body > header nav li:nth-child(2) a {
+        padding: 0 18px;
+    }
+
+    .quadro-kanban {
+        grid-template-columns: 1fr;
+        padding-top: 22px;
+    }
+
+    .coluna {
+        min-height: 360px;
+    }
+}
