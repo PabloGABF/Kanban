@@ -230,6 +230,12 @@ header nav li:nth-child(3) a::before {
     opacity: 0.55;
     transform: rotate(1deg);
 }
+footer {
+    padding: 16px 22px 20px;
+    color: var(--roxo);
+    font-size: 0.92rem;
+    text-align: center;
+}
 @media (max-width: 1200px) {
     .quadro-kanban {
         grid-template-columns: repeat(2, minmax(260px, 1fr));
