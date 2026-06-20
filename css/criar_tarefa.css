@@ -269,6 +269,11 @@ header nav li:nth-child(3) a::before {
     background: var(--rosa-claro);
     transform: translateY(-1px);
 }
+footer {
+    padding: 16px 22px 20px;
+    color: var(--roxo);
+    font-size: 0.92rem;
+    text-align: center;
 @media (max-width: 720px) {
     body > header {
         flex-direction: column;
