@@ -1,311 +1,294 @@
-/* index.css - Driftboard Kanban */
-/* Paleta: #111113, #D18681, #ACBFB7, #F6EBDD, #8E6D86 */
-
+/* =========================================================
+   1. VARIÁVEIS GLOBAIS
+   ========================================================= */
 :root {
-    --bg: #111113;
-    --surface: #18181b;
-    --surface-card: #101012;
-    --surface-hover: #202025;
-    --border: rgba(246, 235, 221, 0.12);
-    --border-dashed: rgba(246, 235, 221, 0.16);
-    --text: #F6EBDD;
-    --muted: #ACBFB7;
-    --primary: #D18681;
-    --primary-hover: #e19792;
-    --purple: #8E6D86;
-    --shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
-    --radius: 18px;
-    --font-title: Georgia, "Times New Roman", serif;
-    --font-body: Inter, Arial, Helvetica, sans-serif;
+    --fundo: #111113;
+    --superficie: #1b1b1f;
+    --cartao: #101012;
+    --texto: #f6ebdd;
+    --secundario: #acbfb7;
+
+    --rosa: #d18681;
+    --rosa-claro: #e29a95;
+    --roxo: #8e6d86;
+
+    --borda: rgba(246, 235, 221, 0.12);
+    --borda-clara: rgba(246, 235, 221, 0.18);
+
+    --titulo: Georgia, "Times New Roman", serif;
+    --corpo: Inter, Arial, Helvetica, sans-serif;
 }
 
+/* =========================================================
+   2. RESET E ESTRUTURA BASE
+   ========================================================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    min-height: 100%;
-}
-
 body {
     min-height: 100vh;
-    background:
-        radial-gradient(circle at 8% 12%, rgba(142, 109, 134, 0.10), transparent 28%),
-        radial-gradient(circle at 78% 0%, rgba(209, 134, 129, 0.07), transparent 26%),
-        var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: var(--corpo);
 }
 
-/* Cabeçalho */
+/* =========================================================
+   3. CABEÇALHO E NAVEGAÇÃO
+   ========================================================= */
 body > header {
-    height: 80px;
-    padding: 0 clamp(20px, 3vw, 48px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: rgba(17, 17, 19, 0.88);
-    backdrop-filter: blur(14px);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    min-height: 80px;
+    padding: 0 clamp(20px, 2.5vw, 48px);
+    border-bottom: 1px solid var(--borda);
 }
 
-body > header h1 {
-    font-family: var(--font-title);
+header h1 {
+    font-family: var(--titulo);
     font-size: 1.55rem;
     font-style: italic;
-    line-height: 1;
 }
 
-body > header h1 a {
-    color: var(--primary);
+header h1 a {
+    color: var(--rosa);
     text-decoration: none;
 }
 
-body > header nav ul {
-    list-style: none;
+header nav ul {
     display: flex;
     align-items: center;
     gap: 18px;
+    list-style: none;
 }
 
-body > header nav a {
-    min-height: 44px;
+header nav a {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    color: var(--muted);
-    text-decoration: none;
+    min-height: 44px;
+    color: var(--secundario);
     font-weight: 700;
-    transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+    text-decoration: none;
 }
 
-body > header nav a:hover {
-    color: var(--text);
+/* Ícones do menu */
+header nav li:nth-child(1) a::before {
+    content: "▦";
 }
 
-/* Segundo item do menu: Criar Tarefa */
-body > header nav li:nth-child(2) a {
-    padding: 0 24px;
+header nav li:nth-child(2) a {
+    padding: 0 22px;
     border-radius: 14px;
-    background: var(--primary);
-    color: #111113;
-    box-shadow: 0 14px 30px rgba(209, 134, 129, 0.20);
+    background: var(--rosa);
+    color: var(--fundo);
 }
 
-body > header nav li:nth-child(2) a::before {
+header nav li:nth-child(2) a::before {
     content: "+";
     font-size: 1.4rem;
-    line-height: 1;
+    font-weight: 400;
 }
 
-body > header nav li:nth-child(2) a:hover {
-    background: var(--primary-hover);
-    transform: translateY(-1px);
-}
-
-/* Terceiro item do menu: Sair */
-body > header nav li:nth-child(3) a::before {
+header nav li:nth-child(3) a::before {
     content: "↪";
-    color: var(--muted);
+    font-size: 1.1rem;
 }
 
-/* Quadro Kanban */
+/* =========================================================
+   4. QUADRO KANBAN E COLUNAS
+   ========================================================= */
 .quadro-kanban {
-    width: min(100%, 1880px);
-    margin: 0 auto;
-    padding: 30px clamp(16px, 3vw, 48px) 56px;
     display: grid;
     grid-template-columns: repeat(4, minmax(260px, 1fr));
     gap: 24px;
-    align-items: start;
+    width: min(100%, 1900px);
+    margin: auto;
+    padding: 30px clamp(16px, 2.5vw, 48px) 56px;
 }
 
 .coluna {
     min-height: calc(100vh - 140px);
     padding: 24px 20px;
-    border: 1px dashed var(--border-dashed);
-    border-radius: var(--radius);
+    border: 1px dashed var(--borda-clara);
+    border-radius: 18px;
     background: rgba(246, 235, 221, 0.035);
-    box-shadow: inset 0 1px 0 rgba(246, 235, 221, 0.04);
 }
 
 .coluna h2 {
-    padding-bottom: 18px;
     margin-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-title);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--borda);
+    font-family: var(--titulo);
     font-size: 1.12rem;
     font-style: italic;
-    line-height: 1.2;
 }
 
-/* Área onde seu JS coloca os cards */
 .area-cartoes {
     display: grid;
     gap: 16px;
 }
 
-/* Compatível com vários nomes de classe que você possa usar no JS */
-.area-cartoes > *,
-.cartao,
-.card,
-.tarefa,
-.task-card {
+/* =========================================================
+   5. CARTÕES DE TAREFA
+   ========================================================= */
+.cartao-tarefa {
     position: relative;
-    padding: 20px 20px 20px 22px;
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--primary);
+    padding: 20px 18px 17px;
+    border: 1px solid var(--borda);
+    border-left: 4px solid var(--rosa);
     border-radius: 12px;
-    background: var(--surface-card);
-    color: var(--muted);
+    background: var(--cartao);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
-    transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 }
 
-.area-cartoes > *:hover,
-.cartao:hover,
-.card:hover,
-.tarefa:hover,
-.task-card:hover {
-    transform: translateY(-2px);
+.cartao-tarefa:hover {
     border-color: rgba(209, 134, 129, 0.38);
-    background: #121215;
+    transform: translateY(-2px);
+    transition: 0.16s;
 }
 
-.area-cartoes h3,
-.cartao h3,
-.card h3,
-.tarefa h3,
-.task-card h3,
-.titulo-cartao {
-    margin-right: 56px;
-    margin-bottom: 14px;
-    color: var(--text);
-    font-family: var(--font-title);
-    font-size: 1.05rem;
-    font-weight: 800;
+.cartao-tarefa h3 {
+    margin: 0 54px 12px 0;
+    font-family: var(--titulo);
+    font-size: 1.04rem;
+    line-height: 1.35;
+    word-break: break-word;
 }
 
-.area-cartoes p,
-.cartao p,
-.card p,
-.tarefa p,
-.task-card p,
 .descricao-cartao {
-    color: var(--muted);
-    line-height: 1.55;
+    color: var(--secundario);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    word-break: break-word;
 }
 
-.responsavel,
-.card-responsavel,
-.tarefa-responsavel {
-    margin-top: 16px;
-    color: var(--purple);
-    font-size: 0.88rem;
+.responsavel {
+    display: block;
+    margin-top: 14px;
+    color: var(--roxo);
+    font-size: 0.86rem;
     font-weight: 700;
 }
 
-/* Botões de ação dentro dos cards */
-.acoes-card,
-.card-actions,
-.tarefa-acoes {
-    position: absolute;
-    top: 18px;
-    right: 16px;
+/* =========================================================
+   6. METADADOS, BADGES E PRAZO
+   ========================================================= */
+.meta-cartao {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
 }
 
-.acoes-card button,
-.card-actions button,
-.tarefa-acoes button,
-.botao-editar,
-.botao-excluir {
-    width: 26px;
-    height: 26px;
+.badge-prioridade,
+.prazo-cartao {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.badge-prioridade {
+    background: rgba(142, 109, 134, 0.25);
+    color: var(--secundario);
+}
+
+.prioridade-alta {
+    background: rgba(209, 134, 129, 0.23);
+    color: var(--rosa-claro);
+}
+
+.prioridade-media {
+    background: rgba(246, 235, 221, 0.1);
+    color: var(--texto);
+}
+
+.prazo-cartao {
+    background: rgba(172, 191, 183, 0.12);
+    color: var(--secundario);
+}
+
+/* =========================================================
+   7. AÇÕES DOS CARTÕES
+   ========================================================= */
+.acoes-cartao {
+    position: absolute;
+    top: 15px;
+    right: 13px;
+    display: flex;
+    gap: 5px;
+}
+
+.btn-acao {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
     border: 0;
     border-radius: 8px;
     background: transparent;
-    color: var(--primary);
+    color: var(--rosa);
     cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
 }
 
-.acoes-card button:hover,
-.card-actions button:hover,
-.tarefa-acoes button:hover,
-.botao-editar:hover,
-.botao-excluir:hover {
+.btn-acao:hover {
     background: rgba(209, 134, 129, 0.12);
-    transform: translateY(-1px);
 }
 
-.botao-excluir,
-.tarefa-acoes .excluir {
-    color: var(--purple);
+.btn-excluir {
+    color: var(--roxo);
 }
 
-/* Estados opcionais */
-.coluna.drag-over {
-    border-color: var(--primary);
+.icone-acao {
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+}
+
+/* =========================================================
+   8. ESTADOS DO DRAG AND DROP
+   ========================================================= */
+.drag-over {
+    border-color: var(--rosa);
     background: rgba(209, 134, 129, 0.07);
 }
 
-.area-cartoes > *.arrastando,
-.cartao.arrastando,
-.card.arrastando,
-.tarefa.arrastando {
+.arrastando {
     opacity: 0.55;
     transform: rotate(1deg);
 }
 
+/* =========================================================
+   9. RESPONSIVIDADE
+   ========================================================= */
 @media (max-width: 1200px) {
     .quadro-kanban {
         grid-template-columns: repeat(2, minmax(260px, 1fr));
     }
 
     .coluna {
-        min-height: 520px;
+        min-height: 500px;
     }
 }
 
 @media (max-width: 720px) {
     body > header {
-        height: auto;
-        min-height: 82px;
-        padding-top: 18px;
-        padding-bottom: 18px;
-        align-items: flex-start;
-        gap: 18px;
         flex-direction: column;
+        align-items: flex-start;
+        padding: 18px;
     }
 
-    body > header nav ul {
+    header nav,
+    header nav ul {
         width: 100%;
         flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    body > header nav li:nth-child(2) a {
-        padding: 0 18px;
     }
 
     .quadro-kanban {
         grid-template-columns: 1fr;
-        padding-top: 22px;
-    }
-
-    .coluna {
-        min-height: 360px;
     }
 }
