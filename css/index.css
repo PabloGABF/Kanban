@@ -1,0 +1,272 @@
+:root {
+    --fundo: #111113;
+    --superficie: #1b1b1f;
+    --cartao: #101012;
+    --texto: #f6ebdd;
+    --secundario: #acbfb7;
+
+    --rosa: #d18681;
+    --rosa-claro: #e29a95;
+    --roxo: #8e6d86;
+
+    --borda: rgba(246, 235, 221, 0.12);
+    --borda-clara: rgba(246, 235, 221, 0.18);
+
+    --titulo: Georgia, "Times New Roman", serif;
+    --corpo: Inter, Arial, Helvetica, sans-serif;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: var(--corpo);
+}
+body > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+    padding: 0 clamp(20px, 2.5vw, 48px);
+    border-bottom: 1px solid var(--borda);
+}
+
+header h1 {
+    font-family: var(--titulo);
+    font-size: 1.55rem;
+    font-style: italic;
+}
+
+header h1 a {
+    color: var(--rosa);
+    text-decoration: none;
+}
+
+header nav ul {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    list-style: none;
+}
+
+header nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    color: var(--secundario);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Ícones do menu */
+header nav li:nth-child(1) a::before {
+    content: "▦";
+}
+
+header nav li:nth-child(2) a {
+    padding: 0 22px;
+    border-radius: 14px;
+    background: var(--rosa);
+    color: var(--fundo);
+}
+
+header nav li:nth-child(2) a::before {
+    content: "+";
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+header nav li:nth-child(3) a::before {
+    content: "↪";
+    font-size: 1.1rem;
+}
+.quadro-kanban {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 24px;
+    width: min(100%, 1900px);
+    margin: auto;
+    padding: 30px clamp(16px, 2.5vw, 48px) 56px;
+}
+
+.coluna {
+    min-height: calc(100vh - 140px);
+    padding: 24px 20px;
+    border: 1px dashed var(--borda-clara);
+    border-radius: 18px;
+    background: rgba(246, 235, 221, 0.035);
+}
+
+.coluna h2 {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--borda);
+    font-family: var(--titulo);
+    font-size: 1.12rem;
+    font-style: italic;
+}
+
+.area-cartoes {
+    display: grid;
+    gap: 16px;
+}
+.cartao-tarefa {
+    position: relative;
+    padding: 20px 18px 17px;
+    border: 1px solid var(--borda);
+    border-left: 4px solid var(--rosa);
+    border-radius: 12px;
+    background: var(--cartao);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.cartao-tarefa:hover {
+    border-color: rgba(209, 134, 129, 0.38);
+    transform: translateY(-2px);
+    transition: 0.16s;
+}
+
+.cartao-tarefa h3 {
+    margin: 0 54px 12px 0;
+    font-family: var(--titulo);
+    font-size: 1.04rem;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.descricao-cartao {
+    color: var(--secundario);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.responsavel {
+    display: block;
+    margin-top: 14px;
+    color: var(--roxo);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+.meta-cartao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.badge-prioridade,
+.prazo-cartao {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.badge-prioridade {
+    background: rgba(142, 109, 134, 0.25);
+    color: var(--secundario);
+}
+
+.prioridade-alta {
+    background: rgba(209, 134, 129, 0.23);
+    color: var(--rosa-claro);
+}
+
+.prioridade-media {
+    background: rgba(246, 235, 221, 0.1);
+    color: var(--texto);
+}
+
+.prazo-cartao {
+    background: rgba(172, 191, 183, 0.12);
+    color: var(--secundario);
+}
+.acoes-cartao {
+    position: absolute;
+    top: 15px;
+    right: 13px;
+    display: flex;
+    gap: 5px;
+}
+
+.btn-acao {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--rosa);
+    cursor: pointer;
+}
+
+.btn-acao:hover {
+    background: rgba(209, 134, 129, 0.12);
+}
+
+.btn-excluir {
+    color: var(--roxo);
+}
+
+.icone-acao {
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+}
+.drag-over {
+    border-color: var(--rosa);
+    background: rgba(209, 134, 129, 0.07);
+}
+
+.arrastando {
+    opacity: 0.55;
+    transform: rotate(1deg);
+}
+@media (max-width: 1200px) {
+    .quadro-kanban {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+    }
+
+    .coluna {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 720px) {
+    body > header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    header nav,
+    header nav ul {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .quadro-kanban {
+        grid-template-columns: 1fr;
+    }
+}
+.prioridade-baixa {
+    background: rgba(142, 109, 134, 0.25);
+    color: var(--secundario);
+}
+
+.prazo-atrasado {
+    background: rgba(209, 134, 129, 0.23);
+    color: var(--rosa-claro);
+}
+
+.cartao-atrasado {
+    border-left-color: var(--rosa-claro);
+}

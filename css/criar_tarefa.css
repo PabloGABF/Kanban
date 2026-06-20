@@ -1,0 +1,300 @@
+:root {
+    --fundo: #111113;
+    --superficie: #1b1b1f;
+    --texto: #f6ebdd;
+    --secundario: #acbfb7;
+
+    --rosa: #d18681;
+    --rosa-claro: #e29a95;
+    --roxo: #8e6d86;
+
+    --borda: rgba(246, 235, 221, 0.12);
+    --borda-clara: rgba(246, 235, 221, 0.18);
+
+    --titulo: Georgia, "Times New Roman", serif;
+    --corpo: Inter, Arial, Helvetica, sans-serif;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: var(--corpo);
+}
+body > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 72px;
+    padding: 0 clamp(22px, 2.4vw, 44px);
+    border-bottom: 1px solid var(--borda);
+}
+
+header h1 {
+    font-family: var(--titulo);
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
+header h1 a {
+    color: var(--rosa);
+    text-decoration: none;
+}
+
+header nav ul {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    list-style: none;
+}
+
+header nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    color: var(--secundario);
+    font-size: 0.94rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+header nav a:hover {
+    color: var(--texto);
+}
+
+/* Ícones do menu */
+header nav li:nth-child(1) a::before {
+    content: "▦";
+}
+
+header nav li:nth-child(2) a::before {
+    content: "▣";
+    font-size: 0.95rem;
+}
+
+header nav li:nth-child(3) a::before {
+    content: "↪";
+    font-size: 1.1rem;
+}
+.container-formulario {
+    width: min(528px, calc(100% - 40px));
+    margin: auto;
+    padding: 42px 0 54px;
+}
+
+.cabecalho-tarefa {
+    margin-bottom: 30px;
+}
+
+.cabecalho-tarefa h2 {
+    font-family: var(--titulo);
+    font-size: 2rem;
+    font-style: italic;
+    letter-spacing: -0.035em;
+}
+
+.cabecalho-tarefa p {
+    margin-top: 11px;
+    color: var(--secundario);
+    font-size: 0.93rem;
+    line-height: 1.45;
+}
+.formulario-tarefa {
+    display: grid;
+    gap: 20px;
+}
+
+.grupo-input {
+    display: grid;
+    gap: 9px;
+}
+
+.grupo-input label,
+.grupo-prioridade legend {
+    color: var(--secundario);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.grupo-input label span {
+    color: var(--rosa);
+}
+
+.grupo-input input,
+.grupo-input textarea,
+.grupo-input select {
+    width: 100%;
+    border: 1px solid var(--borda-clara);
+    border-radius: 15px;
+    outline: none;
+    background: var(--superficie);
+    color: var(--texto);
+    font: inherit;
+    font-size: 0.93rem;
+    transition: 0.18s;
+}
+
+.grupo-input input,
+.grupo-input select {
+    height: 47px;
+    padding: 0 15px;
+}
+
+.grupo-input textarea {
+    min-height: 108px;
+    padding: 15px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.grupo-input input::placeholder,
+.grupo-input textarea::placeholder {
+    color: rgba(246, 235, 221, 0.5);
+}
+
+.grupo-input input:focus,
+.grupo-input textarea:focus,
+.grupo-input select:focus {
+    border-color: var(--rosa);
+    background: #222228;
+    box-shadow: 0 0 0 4px rgba(209, 134, 129, 0.14);
+}
+
+/* Mantido em uma coluna; pode virar duas no HTML/CSS futuramente. */
+.grupo-linha-dupla {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.grupo-input select {
+    appearance: none;
+    padding-right: 44px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--secundario) 50%),
+        linear-gradient(135deg, var(--secundario) 50%, transparent 50%);
+    background-position:
+        calc(100% - 19px) 20px,
+        calc(100% - 14px) 20px;
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+}
+
+.grupo-input select option {
+    background: var(--superficie);
+    color: var(--texto);
+}
+.grupo-prioridade {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-height: 58px;
+    padding: 0 15px;
+    margin-top: 20px;
+    border: 1px solid var(--borda-clara);
+    border-radius: 15px;
+    background: var(--superficie);
+    position: relative;
+}
+
+.grupo-prioridade legend {
+    position: absolute;
+    top: -25px;
+    left: 0px;
+}
+
+.grupo-prioridade label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--secundario);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.grupo-prioridade input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--secundario);
+    cursor: pointer;
+}
+.acoes-formulario {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.btn-secundario,
+.btn-primario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border-radius: 13px;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-secundario {
+    border: 0;
+    background: transparent;
+    color: var(--secundario);
+}
+
+.btn-secundario:hover {
+    color: var(--texto);
+}
+
+.btn-primario {
+    padding: 0 22px;
+    border: 0;
+    background: var(--rosa);
+    color: var(--fundo);
+    box-shadow: 0 12px 26px rgba(209, 134, 129, 0.2);
+}
+
+.btn-primario:hover {
+    background: var(--rosa-claro);
+    transform: translateY(-1px);
+}
+@media (max-width: 720px) {
+    body > header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    header nav,
+    header nav ul {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+    }
+
+    .container-formulario {
+        width: min(528px, calc(100% - 32px));
+        padding-top: 30px;
+    }
+
+    .grupo-prioridade {
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        padding: 13px 15px;
+    }
+
+    .grupo-prioridade legend {
+        margin-bottom: 0;
+    }
+}
