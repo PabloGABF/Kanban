@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário de Atividades - Kanban Corporativo</title>
-    <script src="js/calendario.js" defer></script>
+    <title>Calendário - Driftboard</title>
     <link rel="stylesheet" href="css/calendario.css">
+    <script src="js/calendario.js" defer></script>
 </head>
 <body>
-
     <header>
-        <h1><a href="index.html">Meu Kanban</a></h1>
+        <h1><a href="index.html">Driftboard</a></h1>
         <nav>
             <ul>
                 <li><a href="index.html">Visão Geral</a></li>
@@ -21,17 +20,15 @@
     </header>
 
     <main class="container-calendario">
-        
         <section class="navegacao-mes">
             <button type="button" class="btn-navegacao">&lt; Anterior</button>
-            <h2 id="mes-ano-atual">Junho de 2026</h2>
+            <h2 id="mes-ano-atual"></h2>
             <button type="button" class="btn-navegacao">Próximo &gt;</button>
         </section>
 
         <section class="grade-calendario">
             <table class="tabela-calendario">
-                <caption>Cronograma Mensal de Entrega de Requisitos</caption>
-                
+                <caption>Calendário de tarefas do Driftboard</caption>
                 <thead>
                     <tr>
                         <th scope="col">Dom</th>
@@ -43,25 +40,18 @@
                         <th scope="col">Sáb</th>
                     </tr>
                 </thead>
-
-                <tbody>
-                    </tbody>
+                <tbody></tbody>
             </table>
         </section>
 
-        <section class="tarefas-do-dia" aria-live="polite">
+        <aside class="tarefas-do-dia" aria-live="polite">
             <h3 id="titulo-dia-selecionado">Selecione um dia no calendário</h3>
-            
             <div class="lista-tarefas-calendario" id="lista-tarefas">
                 <p>Nenhuma tarefa selecionada.</p>
             </div>
-        </section>
-
+        </aside>
     </main>
 
-    <footer>
-        <p>Projeto de Engenharia de Software - 2026</p>
-    </footer>
-
+    <footer><p>Projeto de Engenharia de Software - 2026</p></footer>
 </body>
 </html>
