@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <main class="container_login">
+        <header class="cabecalho_login">
+            <h1>Acesso ao Kanban</h1>
+            <p>Insiira suas credenciais para acessar o sistema.</p>
+        </header>
+
+        <form action="index.html" method="GET"  class="forrmulario_login"></form>
+            <div class="grupo_input">
+                <label for="email-usuario">Email Corporativo:</label>
+                <input type="email"
+                        id="email-usuario" 
+                        name="email-usuario" 
+                        required
+                        autocomplete="username">
+            </div>
+            <div class="grupo_input">
+                <label for="senha_usuario">Senha:</label>
+                <input type="password" 
+                        id="senha_usuario" 
+                        name="senha_usuario"
+                        placeholder="Digite sua senha" 
+                        required
+                        autocomplete="current-password">
+
+            </div>
+            <button type="submit" class="btn_primario">Entrar</button>
+        </form>
+        <footer class="rodape_login">
+            <p>Ainda não tem uma Conta? <a href="solicitar_acesso.html">Solicite liberação de conta</a></p>
+        </footer>
+    </main>
+</body>
+</html>

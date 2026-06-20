@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">Driftboard</a></h1>
+        <nav>
+            <ul>
+                <li><a href="calendario.html">Calendário</a></li>
+                <li><a href="criar_tarefa.html">Criar Tarefa</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quadro-kanban">
+        <div class="coluna" id="to-do">
+            <h2>A Fazer (To Do)</h2>
+            <div class="area-cartoes"></div>
+        </div>
+        
+        <div class="coluna" id="doing">
+            <h2>Em Andamento (Doing)</h2>
+            <div class="area-cartoes"></div>
+        </div>
+
+        <div class="coluna" id="review">
+            <h2>Revisão (Review)</h2>
+            <div class="area-cartoes"></div>
+        </div>
+        
+        <div class="coluna" id="done">
+            <h2>Concluído (Done)</h2>
+            <div class="area-cartoes"></div>
+        </div>
+    </main>
+
+    <script src="javascrip/kanban.js" defer></script>
+</body>
+</html>

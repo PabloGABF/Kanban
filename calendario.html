@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário - Driftboard</title>
+    <link rel="stylesheet" href="css/calendario.css">
+    <script src="javascrip/calendario.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">Driftboard</a></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Visão Geral</a></li>
+                <li><a href="criar_tarefa.html">Criar Tarefa</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container-calendario">
+        <section class="navegacao-mes">
+            <button type="button" class="btn-navegacao">&lt; Anterior</button>
+            <h2 id="mes-ano-atual"></h2>
+            <button type="button" class="btn-navegacao">Próximo &gt;</button>
+        </section>
+
+        <section class="grade-calendario">
+            <table class="tabela-calendario">
+                <caption>Calendário de tarefas do Driftboard</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Dom</th>
+                        <th scope="col">Seg</th>
+                        <th scope="col">Ter</th>
+                        <th scope="col">Qua</th>
+                        <th scope="col">Qui</th>
+                        <th scope="col">Sex</th>
+                        <th scope="col">Sáb</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <aside class="tarefas-do-dia" aria-live="polite">
+            <h3 id="titulo-dia-selecionado">Selecione um dia no calendário</h3>
+            <div class="lista-tarefas-calendario" id="lista-tarefas">
+                <p>Nenhuma tarefa selecionada.</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer><p>Projeto de Engenharia de Software - 2026</p></footer>
+</body>
+</html>
