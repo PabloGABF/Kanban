@@ -31,7 +31,7 @@ body > header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 80px;
+    min-height: 72px;
     padding: 0 clamp(20px, 2.5vw, 48px);
     border-bottom: 1px solid var(--borda);
 }
@@ -55,11 +55,12 @@ header nav ul {
 }
 
 header nav a {
-    display: inline-flex;
+  display: inline-flex;
     align-items: center;
     gap: 8px;
     min-height: 44px;
     color: var(--secundario);
+    font-size: 0.94rem;
     font-weight: 700;
     text-decoration: none;
 }
@@ -70,7 +71,9 @@ header nav li:nth-child(1) a::before {
 }
 
 header nav li:nth-child(2) a {
-    padding: 0 22px;
+    justify-content: center;
+    min-width: 164px;
+    padding: 0 21px;
     border-radius: 14px;
     background: var(--rosa);
     color: var(--fundo);
