@@ -57,7 +57,7 @@ header nav a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    min-height: 42px;
+    min-height: 44px;
     color: var(--secundario);
     font-size: 0.94rem;
     font-weight: 700;
